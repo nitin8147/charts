@@ -18,6 +18,9 @@ metadata:
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
     {{- end }}
 spec:
+  {{- if "common.ingress.supportsIngressClassname" }}
+  ingressClassName: {{ .Values.healthIngress.ingressClassName }}
+  {{- end }}
   rules:
     {{- if .Values.healthIngress.hostname }}
     - host: {{ .Values.healthIngress.hostname }}
